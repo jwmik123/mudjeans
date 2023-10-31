@@ -1,44 +1,47 @@
 pipeline {
     agent any 
 
-    stages {
-        stage('Checkout') {
-            steps {
-                // Get the code from the version control system.
-                checkout scm 
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Commands to build the project
-                echo 'Building...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Commands to test the project
-                echo 'Testing...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Commands to deploy the project
-                echo 'Deploying...'
-            }
-        }
+    stage('Build & Test') {
+    steps {
+        // Your build and test commands
     }
+}
 
-    post {
-        success {
-            // Actions to take if pipeline is successful, e.g., notifications
-            echo 'Pipeline completed successfully.'
-        }
-        failure {
-            // Actions to take if pipeline fails
-            echo 'Pipeline failed.'
-        }
+    stage('Static Analysis') {
+    steps {
+        // Integrate with tools like SonarQube or similar
     }
+}
+
+    stage('Notify') {
+    steps {
+        email (
+            subject: "Code Analysis Result",
+            body: "Your static code analysis is completed. Check the report.",
+            recipientProviders: [[$class: 'Developers']]
+        )
+    }
+}
+
+    stage('Deploy to Development') {
+    steps {
+        // Build Docker image and run for development environment
+    }
+}
+
+stage('Deploy to Test') {
+    steps {
+        // Run for the test environment
+    }
+}
+
+stage('Deploy to Acceptance/Production') {
+    when {
+        // Define when you want this to run, e.g., after manual approval
+    }
+    steps {
+        // Run for the production environment
+    }
+}
+
 }
