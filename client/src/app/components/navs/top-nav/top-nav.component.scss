@@ -1,0 +1,15 @@
+.top-nav {
+    .gray-color {
+        color: #212121;
+    }
+    .profile-picture {
+        height: 25px;
+        width: 25px;
+        object-fit: cover;
+    }
+    #user_name {
+        padding-left: 5px;
+        font-size: 16px;
+        font-style: normal;
+    }
+}

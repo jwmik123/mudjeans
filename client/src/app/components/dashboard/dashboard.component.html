@@ -1,0 +1,74 @@
+<div class="container" style="min-width: 900px">
+
+  <div class="row">
+    <div class="col s12">
+      <h3>Dashboard</h3>
+    </div>
+  </div>
+<div class="row">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+      <input type="file" (change)="upload($event.target.files)">
+    </div>
+    <div class="file-path-wrapper">
+      <input type="text" class="file-path validate">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="progress">
+    <div class="determinate" [style]="'width:'+percentCompleted+'%'"></div>
+  </div>
+</div>
+    <div class="row">
+        <table class="col m12">
+          <thead class="black white-text">
+          <tr>
+            <th>(#) Product Code</th>
+            <th>Product Name</th>
+            <th>Size</th>
+            <th>Stock</th>
+            <th>Forecast</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody *ngFor="let jeans of getKeys(); let index">
+          <tr *ngFor="let jean of jeansObject[index]">
+            <td>{{jean.productCode}}</td>
+            <td>{{jean.description}}</td>
+            <td>{{jean.size}}</td>
+            <td>{{jean.currentStock}}</td>
+            <td>{{jean.lastThreeMonths}}</td>
+            <td></td>
+          </tr>
+          <tr class="table-total">
+            <td><b>{{jeans}}</b></td>
+            <td></td>
+            <td></td>
+            <td><b>{{calculateTotalStock(jeans)}}</b></td>
+            <td><b>{{calculateStockForecast(jeans)}}</b></td>
+            <td><a class="waves-effect waves-light btn-small disabled" [ngClass]="{'waves-effect':true,'waves-light':true,'btn-small':true,'disabled':calculateTotalStock(jeans)>=calculateStockForecast(jeans)}" (click)="(calculateTotalStock(jeans)<=calculateStockForecast(jeans)) ? goToOrderAndAddToOrder(jeans) : false">{{(calculateTotalStock(jeans)<=calculateStockForecast(jeans)) ? "ORDER NEEDED" : "NO ORDER NEEDED"}}</a></td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, options);
+  });
+</script>
+

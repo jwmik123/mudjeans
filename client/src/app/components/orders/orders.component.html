@@ -1,0 +1,85 @@
+<div class="container-fluid orders">
+  <div class="orders-cards">
+
+    <div class="card" (click)="selectOrder(order)" [ngClass]="{'selected': selectedOrder === order}" *ngFor="let order of orders">
+      <div class="card-content">
+        <div class="card-title">{{order.orderNumber}}</div>
+        <div>
+            <span class="label">Pairs: </span>
+            <span>{{order.quantity}}</span>
+        </div>
+        <!-- <div>
+            <span class="label">Order number: </span>
+            <span>{{order.orderNumber}}</span>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="addOrderScreen" class="add-order-screen">
+      <form class="form-jean">
+          <div class="jean" *ngFor="let order of orderData; let i =index">
+            <div class="order-jean">
+              <div class="form-group">
+              <select [name]="'jean' + i" [(ngModel)]="orderData[i].description" (change)="saveFormDataToLocalStorage()">
+                <option disabled selected>No jean selected</option>
+                <option *ngFor="let key of getJeanKeys();let j = index" [value]="key">{{key}}</option>
+              </select>
+              </div>
+            </div>
+            <div class="order-amount">
+              <div class="form-group">
+                <label [for]="'ordernumber' + i">Quantity</label>
+                <input type="text" class="form-control" [name]="'ordernumber' + i" placeholder="{{placeholder}}" [(ngModel)]="orderData[i].quantity" (change)="saveFormDataToLocalStorage()">
+              </div>
+            </div>
+          </div>
+      </form>
+  </div>
+
+  <div class="add-order">
+      <button type="button" class="btn"  (click)="addOrderFormField()" *ngIf="addOrderScreen">Add Item</button>
+      <button type="button" class="btn" (click)="ViewAddOrderScreen()" *ngIf="addOrderScreen === false">New order</button>
+      <button type="button" class="btn" (click)="addOrder()" *ngIf="addOrderScreen">complete order</button>
+
+  </div>
+
+  <div *ngIf="selectedOrder;then content else no_content"></div>
+  <ng-template #content>
+      <div class="order-table" *ngIf="addOrderScreen === false">
+        <table class="table">
+          <thead class="black white-text">
+            <tr>
+              <th scope="col">Productcode</th>
+              <th scope="col">Description</th>
+              <th scope="col">Fabric</th>
+              <th scope="col">Size</th>
+              <th scope="col">Order fix</th>
+            </tr>
+          </thead>
+
+
+
+          <tbody *ngFor="let jean of selectedOrder.jeans">
+            <tr *ngFor="let product of jean.products">
+              <td>{{product.productCode}}</td>
+              <td>{{product.description}}</td>
+              <td>{{product.fabric}}</td>
+              <td>{{product.size}}</td>
+              <td>{{product.quantity}}</td>
+            </tr>
+            <tr class="table-total">
+              <td><b>{{jean.name}}</b></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b>{{jean.quantity}}</b></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+  </ng-template>
+  <ng-template #no_content><div class="nocontent" *ngIf="addOrderScreen === false">Select an order!</div></ng-template>
+</div>

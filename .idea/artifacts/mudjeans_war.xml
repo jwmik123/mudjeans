@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mudjeans:war">
+    <output-path>$PROJECT_DIR$/server/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>mudjeans</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="mudjeans-0.0.1.war">
+      <element id="artifact" artifact-name="mudjeans:war exploded" />
+    </root>
+  </artifact>
+</component>

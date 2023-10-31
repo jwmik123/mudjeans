@@ -1,0 +1,82 @@
+.orders {
+  margin-top: 20px;
+}
+
+.orders-cards {
+  overflow-x: scroll;
+  height: 180px;
+  width: calc(100vw - 300px);
+  white-space: nowrap;
+  .card {
+    margin-left: 30px;
+    display: inline-block;
+    background-color: lightgray;
+    border: 1px solid lightgray;
+    &:hover {
+      cursor: pointer;
+    }
+    &:last-of-type {
+      margin-right: 30px;
+    }
+    .card-title {
+      font-size: 20px !important;
+    }
+    .label {
+      font-weight: 300;
+    }
+  }
+}
+
+.selected {
+  border: 1px solid rgb(71,106,217) !important;
+}
+
+select {
+  display: block !important;
+}
+
+.order-table {
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 50px;
+  th, td {
+    border-radius: 0 !important;
+  }
+  .table-total {
+    background-color: lightgray;
+  }
+}
+
+.add-order {
+  display: block;
+  width: 400px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  button {
+    background-color: rgb(71,106,217);
+    margin-right: 20px;
+  }
+}
+
+.add-order-screen {
+  width: 700px;
+  margin-left: 30px;
+}
+
+.order-jean {
+  display: inline-block;
+  width: 350px;
+}
+
+.order-amount {
+  width: 100px;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.nocontent {
+  margin-left: 30px;
+  font-size: 20px;
+}
+
