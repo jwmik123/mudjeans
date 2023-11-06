@@ -1,29 +1,45 @@
 pipeline {
     agent any
+    
     stages {
-        stage('Build & Test') {
+        stage('Build Docker Image') {
             steps {
-                // commands for building and testing
+                script {
+                    // Build the Docker image
+                    docker.build("my-tomcat-app:${env.BUILD_ID}")
+                }
             }
         }
-        stage('Static Analysis') {
+        
+        stage('Start Test Server') {
             steps {
-                // commands for static analysis
+                script {
+                    // Run your test server container
+                    docker.run(
+                        "--name test-server -d -p 8080:8080 my-tomcat-app:${env.BUILD_ID}"
+                    )
+                }
             }
         }
-        stage('Notify') {
+        
+        stage('Deploy to Deploy Server') {
             steps {
-                // commands for notifications
+                script {
+                    // Stop the old deploy server container
+                    sh 'docker rm -f deploy-server || true'
+                    // Run your deploy server container
+                    docker.run(
+                        "--name deploy-server -d -p 80:8080 my-tomcat-app:${env.BUILD_ID}"
+                    )
+                }
             }
         }
-        stage('Deploy to Development') {
-            steps {
-                // commands for deployment to development environment
-            }
-        }
-        // More stages as needed...
     }
+    
     post {
-        // Post actions like cleanup or notifications
+        always {
+            // Clean up test server container
+            sh 'docker rm -f test-server || true'
+        }
     }
 }
