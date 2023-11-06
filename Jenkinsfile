@@ -2,38 +2,14 @@ pipeline {
     agent any
     
     stages {
-        stage('Build Docker Image') {
+
+        stage('Test Docker') {
             steps {
-                script {
-                    // Build the Docker image
-                    docker.build("my-tomcat-app:${env.BUILD_ID}")
-                }
+                sh 'docker info'
+                // Or a simple test command like
+                // sh 'docker run hello-world'
             }
-        }
-        
-        stage('Start Test Server') {
-            steps {
-                script {
-                    // Run your test server container
-                    docker.run(
-                        "--name test-server -d -p 8080:8080 my-tomcat-app:${env.BUILD_ID}"
-                    )
-                }
-            }
-        }
-        
-        stage('Deploy to Deploy Server') {
-            steps {
-                script {
-                    // Stop the old deploy server container
-                    sh 'docker rm -f deploy-server || true'
-                    // Run your deploy server container
-                    docker.run(
-                        "--name deploy-server -d -p 80:8080 my-tomcat-app:${env.BUILD_ID}"
-                    )
-                }
-            }
-        }
+
     }
     
     post {
@@ -42,4 +18,5 @@ pipeline {
             sh 'docker rm -f test-server || true'
         }
     }
+}
 }
