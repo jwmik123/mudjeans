@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test Docker') {
             steps {
-                sh 'docker run hello-world'
+                sh 'docker info'
             }
         }
         // stage('Build Docker Image') {
