@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Test Docker') {
             steps {
+                // to test connection
                 sh 'docker info'
             }
         }
