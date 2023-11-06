@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            label 'my-docker-label'
+            image 'my-docker-image'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     stages {
         stage('Test Docker') {
             steps {
