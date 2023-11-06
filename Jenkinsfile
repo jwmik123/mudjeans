@@ -1,47 +1,29 @@
 pipeline {
-    agent any 
-
-    stage('Build & Test') {
-    steps {
-        // Your build and test commands
+    agent any
+    stages {
+        stage('Build & Test') {
+            steps {
+                // commands for building and testing
+            }
+        }
+        stage('Static Analysis') {
+            steps {
+                // commands for static analysis
+            }
+        }
+        stage('Notify') {
+            steps {
+                // commands for notifications
+            }
+        }
+        stage('Deploy to Development') {
+            steps {
+                // commands for deployment to development environment
+            }
+        }
+        // More stages as needed...
     }
-}
-
-    stage('Static Analysis') {
-    steps {
-        // Integrate with tools like SonarQube or similar
+    post {
+        // Post actions like cleanup or notifications
     }
-}
-
-    stage('Notify') {
-    steps {
-        email (
-            subject: "Code Analysis Result",
-            body: "Your static code analysis is completed. Check the report.",
-            recipientProviders: [[$class: 'Developers']]
-        )
-    }
-}
-
-    stage('Deploy to Development') {
-    steps {
-        // Build Docker image and run for development environment
-    }
-}
-
-stage('Deploy to Test') {
-    steps {
-        // Run for the test environment
-    }
-}
-
-stage('Deploy to Acceptance/Production') {
-    when {
-        // Define when you want this to run, e.g., after manual approval
-    }
-    steps {
-        // Run for the production environment
-    }
-}
-
 }
