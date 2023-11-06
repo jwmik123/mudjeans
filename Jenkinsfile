@@ -27,12 +27,12 @@ pipeline {
             }
         }
         
-        stage('Test Application') {
-            steps {
-                // Steps to test your application
-                // You could use any testing framework that makes HTTP requests to your test server
-            }
-        }
+        // stage('Test Application') {
+        //     steps {
+        //         // Steps to test your application
+        //         // You could use any testing framework that makes HTTP requests to your test server
+        //     }
+        // }
         
         stage('Deploy to Deploy Server') {
             steps {
